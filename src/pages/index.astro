@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import List from '../components/List.astro';
+import { getAllBooks } from '../utils/googleSheets';
+
+const yearlyBooks = await getAllBooks();
+
+---
+
+<Layout title="Past Reads">
+	<main>
+		<h1>Rubber Ducks Book Club</h1>
+		{yearlyBooks.map(oneYear => (
+			<List year={oneYear.year} books={oneYear.books} />
+		))}
+	</main>
+</Layout>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+</style>

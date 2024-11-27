@@ -1,0 +1,46 @@
+---
+import Card from './Card.astro';
+import type { Book } from '../utils/googleSheets';
+
+interface Props {
+  year: number;
+  books: Book[];
+}
+
+const { year, books } = Astro.props;
+
+// You'll need to implement the function to fetch from Google Sheets
+// import { getBooksByYear } from '../utils/googleSheets';
+---
+
+<div class="year-container">
+  <h1>{year}</h1>
+  <div class="books-container">
+    {books.map(book => (
+      <Card 
+        title={book.title}
+        body={`by ${book.author}`}
+        href={book.googleBooksUrl}
+        month={book.month}
+      />
+    ))}
+  </div>
+</div>
+
+<style>
+  .year-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 1rem;
+  }
+  .books-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+	overflow-y: auto;
+    padding-bottom: 1rem;
+
+  }
+</style>
