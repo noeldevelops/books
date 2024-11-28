@@ -24,8 +24,7 @@ function authenticate() {
   const privateKey = process.env.GOOGLE_PRIVATE_KEY;
   if (!clientEmail || !privateKey) {
     throw new Error(`
-      The CLIENT_EMAIL and PRIVATE_KEY environment variables are required for
-      this sample.
+      The GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY environment variables are missing.
     `);
   }
   return new GoogleAuth({
