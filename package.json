@@ -8,13 +8,17 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "prebuild": "echo $CREDENTIALS_JSON_B64 | base64 -d > credentials.json"
+    "prebuild": ""
   },
   "dependencies": {
     "@astrojs/check": "^0.5.9",
     "astro": "^4.5.5",
+    "dotenv": "^16.4.5",
     "google-auth-library": "^9.15.0",
     "google-spreadsheet": "^4.1.4",
     "typescript": "^5.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1"
   }
 }

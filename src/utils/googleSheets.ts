@@ -1,7 +1,9 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet';
-import { JWT } from 'google-auth-library';
+import { GoogleAuth } from 'google-auth-library';
 import type { GoogleSpreadsheetRow } from 'google-spreadsheet';
-import credentials from '../../credentials.json';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 interface Book {
   title: string;
@@ -17,18 +19,31 @@ interface YearlyBooks {
 
 const SPREADSHEET_ID = '1xZfBupIyI0MezvG-8iACqHrzTrlNt4jqRYGuUZdrp-A';
 
+function authenticate() {
+  const clientEmail = process.env.GOOGLE_CLIENT_EMAIL;
+  const privateKey = process.env.GOOGLE_PRIVATE_KEY;
+  if (!clientEmail || !privateKey) {
+    throw new Error(`
+      The CLIENT_EMAIL and PRIVATE_KEY environment variables are required for
+      this sample.
+    `);
+  }
+  return new GoogleAuth({
+    credentials: {
+      client_email: clientEmail,
+      private_key: privateKey,
+    },
+    scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
+  });
+}
+
 async function getAllBooks(): Promise<YearlyBooks[]> {
   try {
-    const jwt = new JWT({
-      email: credentials.client_email,
-      key: credentials.private_key,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-    });
-
-    const doc = new GoogleSpreadsheet(SPREADSHEET_ID, jwt);
+    const auth = authenticate();
+    const doc = new GoogleSpreadsheet(SPREADSHEET_ID, auth);
     await doc.loadInfo();
 
-    // Get all sheets and convert their titles to numbers
+    // Get all sheets and convert their titles (the year)to numbers
     const yearlyData = await Promise.all(
       Object.values(doc.sheetsByTitle)
         .filter(sheet => !isNaN(Number(sheet.title))) // Only process sheets with numeric names
@@ -42,7 +57,7 @@ async function getAllBooks(): Promise<YearlyBooks[]> {
               googleBooksUrl: row.get('Link on Google Books'),
               month: row.get('Month'),
             }))
-            .filter(book => book.title?.trim())
+            .filter(book => book.title?.trim()) // Filter out any rows with no title - means we didn't read a book that month
           };
         })
     );
