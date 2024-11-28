@@ -12,10 +12,10 @@ const { href, title, body, month } = Astro.props;
 <li class="link-card">
 	<a href={href} target="_blank">
 		<span class="month">{month}</span>
-		<h2>
+		<h3>
 			{title}
-			<span>↗</span>
-		</h2>
+			<span class="icon">↗</span>
+		</h3>
 		<p>
 			{body}
 		</p>
@@ -42,10 +42,10 @@ const { href, title, body, month } = Astro.props;
 		padding: calc(1.5rem - 1px);
 		border-radius: 8px;
 		color: white;
-		background-color: #23262d;
+		background-color: #2d2923;
 		opacity: 0.8;
 	}
-	h2 {
+	h3 {
 		margin: 0;
 		font-size: 1.25rem;
 		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -58,11 +58,15 @@ const { href, title, body, month } = Astro.props;
 		background-position: 0;
 		background-image: var(--accent-gradient);
 	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
+	.link-card:is(:hover, :focus-within) h3 {
+		color: var(--accent);
+	}
+	.link-card:is(:hover, :focus-within) h3 > .icon {
+		transform: translateX(5px);
 	}
 	.month {
 		font-size: 0.75rem;
 		font-weight: 600;
+		color: var(--accent-light);
 	}
 </style>

@@ -7,9 +7,10 @@ const yearlyBooks = await getAllBooks();
 
 ---
 
-<Layout title="Past Reads">
+<Layout title="Rubber Ducks Book Club">
 	<main>
-		<h1>Rubber Ducks Book Club</h1>
+		<h1>Rubber Ducks Bookshelf</h1>
+		<p class="description">A visual record of the books we've read in Rubber Ducks Book Club since 2020. Links go to Google Books.</p>
 		{yearlyBooks.map(oneYear => (
 			<List year={oneYear.year} books={oneYear.books} />
 		))}
@@ -21,5 +22,12 @@ const yearlyBooks = await getAllBooks();
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
+	}
+	h1 {
+		color: var(--accent-light);
+		margin-bottom: 0;
+	}
+	.description {
+		margin: 0 0 2rem 0;
 	}
 </style>
