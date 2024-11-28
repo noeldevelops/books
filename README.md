@@ -8,7 +8,9 @@ The site deploys to Netlify automatically when changes are pushed to the `main` 
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a PR. To build locally with the Google Sheet data, you'll need access to the Google Sheet as well as to set up your own Google Cloud account and generate a service account key. Reach out to me if you'd like access to the Google Sheet.
+Contributions are welcome! Please open an issue or submit a PR. To build locally with the Google Sheet data, you'll need read access to the Google Sheet as well as a Google Cloud account and service account key. 
+
+You can also fork the repo and run the site on your own domain (or locally) with your custom Google Sheet data: Set up a Google Cloud account and service account key that has access to your Google Sheet, and change the `GOOGLE_SHEET_ID` and any other values to fit your use case in `./utils/googleSheets.ts`.
 
 ## About Rubber Ducks NM 
 
