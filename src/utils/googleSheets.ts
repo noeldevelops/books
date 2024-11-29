@@ -42,7 +42,7 @@ async function getAllBooks(): Promise<YearlyBooks[]> {
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID, auth);
     await doc.loadInfo();
 
-    // Get all sheets and convert their titles (the year)to numbers
+    // Get all sheets and convert their titles (the year) to numbers
     const yearlyData = await Promise.all(
       Object.values(doc.sheetsByTitle)
         .filter(sheet => !isNaN(Number(sheet.title))) // Only process sheets with numeric names
