@@ -36,12 +36,20 @@ const { year, books } = Astro.props;
     padding-bottom: 1rem;
     color: var(--accent);
   }
+
   .books-container {
     display: flex;
     gap: 1rem;
     width: 100%;
 	  overflow-y: auto;
     padding-bottom: 1rem;
+  }
 
+@media (max-width: 900px) { 
+    .year-container h2 {
+      margin: 0;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+    }
   }
 </style>
